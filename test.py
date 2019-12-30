@@ -6,7 +6,7 @@ def test_upper_case():
 
 
 def test_lower_case():
-    assert lowercase("Hello") == "hello"()
+    assert lowercase("Hello") == "hello"
 
 
 # def test_capital_case():
