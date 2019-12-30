@@ -1,0 +1,29 @@
+deploy:
+  provider: pages
+  skip_cleanup: true
+  github_token: $GITHUB_TOKEN  # Set in the settings page of your repository, as a secure variable
+  keep_history: true
+  skip_cleanup: true
+  on:
+    branch: master
+
+language: python
+
+python:
+  - 3.5
+  - 3.6
+
+
+# virtualenv:
+#   system_site_packages: true
+
+install:
+  - pip3 install -r requirements.txt
+
+script:
+  # - pytest -v test
+  - coverage run -m pytest test.py
+  - coverage html -d docs/report/coverage/
+
+after_success:
+  - coveralls
