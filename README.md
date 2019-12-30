@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.org/ShivaShankerReddy/py_string_case.svg?branch=master)](https://travis-ci.org/ShivaShankerReddy/py_string_case)
+
 # py_string_case
 
 This module is extension of [stringcase](https://github.com/okunishinishi/python-stringcase/).
