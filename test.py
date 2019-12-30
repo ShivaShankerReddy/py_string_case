@@ -10,7 +10,7 @@ def test_lower_case():
 
 
 # def test_capital_case():
-#     assert capitalcase("") == "".capitalize()
+    assert capitalcase("hello") == "Hello"
 
 
 # def test_capital_case():
