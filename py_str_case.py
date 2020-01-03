@@ -1,5 +1,5 @@
 """
-main
+Converts string to camelcase, lowercase, uppercase, ...
 """
 
 import re
@@ -10,7 +10,7 @@ def string_validation(func):
         if not param:
             return("Enter the string to convert..")
         else:
-            return (func(param))
+            return (func(str(param)))
     return (wrapper)
 
 
@@ -20,11 +20,17 @@ def camelcase(string):
     Args:
         string: String to convert.
     Returns:
-        string: Camel case string.
+        output:
+            string: Camel case string.
+        failure:
+            string: Enter the string to convert..
     """
 
     string = re.sub(r"^[\-_\.]+", '', str(string))
-    return lowercase(string[0]) + re.sub(r"[\-_\.\s]([a-z])", lambda matched: uppercase(matched.group(1)), string[1:])
+    return string[0].lower() + re.sub(r"[\-_\.\s]([a-z])",
+                        lambda matched: uppercase(matched.group(1)),
+                        string[1:]
+                )
 
 
 @string_validation
@@ -34,10 +40,12 @@ def capitalcase(string):
     Args:
         string: String to convert.
     Returns:
-        string: Capital case string.
+        output:
+            string: Capital case string.
+        failure:
+            string: Enter the string to convert..
     """
 
-    # string = str(string)
     return string.capitalize()
 
 
@@ -48,7 +56,10 @@ def constcase(string):
     Args:
         string: String to convert.
     Returns:
-        string: Const cased string.
+        output:
+            string: Const cased string.
+        failure:
+            string: Enter the string to convert..
     """
 
     return uppercase(snakecase(string))
@@ -60,10 +71,13 @@ def lowercase(string):
     Args:
         string: String to convert.
     Returns:
-        string: Lowercase case string.
+        output:
+            string: Lowercase case string.
+        failure:
+            string: Enter the string to convert..
     """
 
-    return str(string).lower()
+    return string.lower()
 
 
 @string_validation
@@ -72,7 +86,10 @@ def pascalcase(string):
     Args:
         string: String to convert.
     Returns:
-        string: Pascal case string.
+        output:
+            string: Pascal case string.
+        failure:
+            string: Enter the string to convert..
     """
 
     return capitalcase(camelcase(string))
@@ -85,7 +102,10 @@ def pathcase(string):
     Args:
         string: String to convert.
     Returns:
-        string: Path cased string.
+        output:
+            string: Path cased string.
+        failure:
+            string: Enter the string to convert..
     """
     string = snakecase(string)
     return re.sub(r"_", "/", string)
@@ -98,7 +118,10 @@ def backslashcase(string):
     Args:
         string: String to convert.
     Returns:
-        string: Spinal cased string.
+        output:
+            string: Spinal cased string.
+        failure:
+            string: Enter the string to convert..
     """
     str1 = re.sub(r"_", r"\\", snakecase(string))
 
@@ -113,10 +136,13 @@ def sentencecase(string):
     Args:
         string: String to convert.
     Returns:
-        string: Sentence cased string.
+        output:
+            string: Sentence cased string.
+        failure:
+            string: Enter the string to convert..
     """
     joiner = ' '
-    string = re.sub(r"[\-_\.\s]", joiner, str(string))
+    string = re.sub(r"[\-_\.\s]", joiner, string)
     return capitalcase(trimcase(
         re.sub(r"[A-Z]", lambda matched: joiner +
                                          lowercase(matched.group(0)), string)
@@ -130,12 +156,15 @@ def snakecase(string):
     Args:
         string: String to convert.
     Returns:
-        string: Snake cased string.
+        output:
+            string: Snake cased string.
+        failure:
+            string: Enter the string to convert..
     """
 
-    string = re.sub(r"[\-\.\s]", '_', str(string))
-    return lowercase(string[0]) + re.sub(r"[A-Z]",
-                        lambda matched: '_' + lowercase(matched.group(0)),
+    string = re.sub(r"[\-\.\s]", '_', string)
+    return string[0].lower() + re.sub(r"[A-Z]",
+                        lambda matched: '_' + matched.group(0).lower(),
                         string[1:]
         )
 
@@ -147,7 +176,10 @@ def spinalcase(string):
     Args:
         string: String to convert.
     Returns:
-        string: Spinal cased string.
+        output:
+            string: Spinal cased string.
+        failure:
+            string: Enter the string to convert..
     """
 
     return re.sub(r"_", "-", snakecase(string))
@@ -160,7 +192,10 @@ def dotcase(string):
     Args:
         string: String to convert.
     Returns:
-        string: Dot cased string.
+        output:
+            string: Dot cased string.
+        failure:
+            string: Enter the string to convert..
     """
 
     return re.sub(r"_", ".", snakecase(string))
@@ -174,7 +209,10 @@ def titlecase(string):
     Args:
         string: String to convert.
     Returns:
-        string: Title cased string.
+        output:
+            string: Title cased string.
+        failure:
+            string: Enter the string to convert..
     """
 
     return ' '.join(
@@ -188,10 +226,13 @@ def trimcase(string):
     Args:
         string: String to convert.
     Returns:
-        string: Trimmed case string
+        output:
+            string: Trimmed case string
+        failure:
+            string: Enter the string to convert..
     """
 
-    return str(string).strip()
+    return string.strip()
 
 
 @string_validation
@@ -200,10 +241,13 @@ def uppercase(string):
     Args:
         string: String to convert.
     Returns:
-        string: Uppercase case string.
+        output:
+            string: Uppercase case string.
+        failure:
+            string: Enter the string to convert..
     """
 
-    return str(string).upper()
+    return string.upper()
 
 
 @string_validation
@@ -213,10 +257,10 @@ def alphanumcase(string):
     Args:
         string: String to convert.
     Returns:
-        string: String with cutted non-alphanumeric symbols.
+        output:
+            string: String with cutted non-alphanumeric symbols.
+        failure:
+            string: Enter the string to convert..
     """
+    
     return ''.join(filter(str.isalnum, str(string)))
-
-
-
-print(alphanumcase('Foo_123 Bar!'))
